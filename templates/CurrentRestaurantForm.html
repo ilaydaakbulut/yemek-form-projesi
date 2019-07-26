@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Current Restaurant Form {% endblock %}
+
+{% block content %}
+
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-6 col-md-offset-3">
+			<h2>Yemek Seçimi</h2>
+			<form method="post"  enctype="multipart/form-data">
+				{% csrf_token %}
+				<div class="card-body">
+                    {{ form|crispy }}
+                </div>
+                <div class="card-footer">
+                	<button class="btn btn-primary" type="submit" >Kaydet<a href="{% url 'accounts:signup' %}"></a></button>
+                </div>
+				
+			</form>
+			<a href="{% url 'logout' %}">logout</a>
+		</div>
+	</div>
+</div>
+
+
+{% endblock %} 

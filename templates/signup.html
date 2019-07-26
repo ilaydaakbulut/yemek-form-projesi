@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Sign Up{% endblock %}
+
+{% block content %}
+<!-- bu sayfa singup seçim sayfası -->
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-6 col-md-offset-3">
+			<h2>Üye Ol</h2>
+			<form method="post" action="{% url 'accounts:ProfileFormekle' %}" enctype="multipart/form-data">
+				{% csrf_token %}
+				{{ form|crispy }}
+				<button class="btn btn-primary" type="submit" >Kaydet</a></button>
+			</form>
+		</div>
+	</div>
+</div>
+
+{% endblock %} 
