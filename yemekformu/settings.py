@@ -13,7 +13,7 @@ SECRET_KEY = '2d8tavkg)&1ukpj)dx-qr*9=#w1qt-_*o29bh)$=@274@br3&_'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -26,7 +26,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    
     'accounts.apps.AccountsConfig',
     'crispy_forms',
     ]
@@ -132,5 +131,5 @@ STATICFILES_DIRS=[
     os.path.join(BASE_DIR,'static')
 ]
 
-#STATIC_ROOT=os.path.join(BASE_DIR,'static/')
+
 
