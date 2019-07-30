@@ -5,7 +5,7 @@ from .models import Profile, CurrentRestaurant
 class ProfileForm(forms.ModelForm):
 	class Meta:
 		model = Profile
-		fields = ('work_type', 'starting_date', 'ending_date', 'restaurant',)
+		fields = ('name','work_type', 'starting_date', 'ending_date', 'restaurant',)
 		def __init__(self, *args, **kwargs):
 			super(ProfileForm, self).__init__(*args, **kwargs)
 			for field in self.fields:

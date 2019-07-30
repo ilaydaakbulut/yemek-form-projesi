@@ -3,29 +3,36 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
+</head>
+<body>
+
+    <div class="main">
+        <div class="container">
+            <div class="signup-content">
+                <div class="signup-img">
+                    
+                    <img src="static/images/signup-img.jpg" width="600"  alt="">
 
 
-<div class="container">
-  <div class="row">
-    <div class="col-md-6 col-md-offset-3">
-      <h2>Giriş</h2>
-      <br>
+                </div>
 
-      {% csrf_token %}
-
-      {% if user.is_authenticated %}
-
-      
-      <b><p><a href="{% url 'logout' %}">logout</a></p></b>
-
-      {% else %}
-      <p>Giriş yapınız.</p>
-      <b><a href="{% url 'login' %}"> Üye Girişi </a></b>
-      <br>
-      <b><a href="{% url 'accounts:signup' %}">Üye Ol</a></b>
-      {% endif %}
+                <div class="signup-form">
+                    <form method="POST" class="register-form" id="register-form">
+                        <h2>Giriş</h2>
+                        {% csrf_token %}
+                        <br>
+                        <h5>Giriş Yapınız.</h5>
+                        <div class="form-submit">
+                            <a href="{% url 'accounts:signup' %}" type="submit" class="submit" name="reset" id="reset">Üye Ol</a>
+                            
+                            <a href="{% url 'login' %}" name="submit" class="submit" id="submit" type="submit"> Üye Girişi </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
 
     </div>
-  </div>
-</div>
 {% endblock %}
+
+

@@ -2,7 +2,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.views import generic
 from django.contrib.auth.models import User
-from django.shortcuts import render,HttpResponse
+from django.shortcuts import render,HttpResponse,HttpResponseRedirect
 from .forms import ProfileForm,CurrentRestaurantForm
 
 
@@ -22,13 +22,13 @@ def ekle(request): #veritabanına girilen verileri kaydetme
     context ={
         "form": form,
     }
-    return render(request,'signup.html',context)
+    return render(request,'ProfileForm.html',context)
 
 def ekle_id(request,id): #veritabanına girilen verileri kaydetme
 
     context ={
     }
-    return render(request,'signup.html',context)
+    return render(request,'ProfileForm.html',context)
 
 
 def ekle2(request): #veritabanına girilen verileri kaydetme

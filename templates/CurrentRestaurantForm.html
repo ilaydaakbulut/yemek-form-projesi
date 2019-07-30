@@ -8,22 +8,43 @@
 
 <div class="container">
 	<div class="row">
-		<div class="col-md-6 col-md-offset-3">
-			<h2>Yemek Seçimi</h2>
-			<form method="post"  enctype="multipart/form-data">
+		<div class="col-md-6 col-md-offset-3">		
+			<div class="col-sm-6 " style="background-color:#e5e5e5;"><center><h3><a href="{% url 'login' %}">First</a></h3></center></div>
+			<div class="col-sm-6" style="background-color:#8e8e8e;"><center><h3><a href="{% url 'accounts:CurrentRestaurantFormekle' %}">Second</a></h3></center></div>
+			<form class="login100-form validate-form" method="post" action="{% url 'accounts:CurrentRestaurantFormekle' %}" enctype="multipart/form-data">
 				{% csrf_token %}
-				<div class="card-body">
-                    {{ form|crispy }}
-                </div>
-                <div class="card-footer">
-                	<button class="btn btn-primary" type="submit" >Kaydet<a href="{% url 'accounts:signup' %}"></a></button>
-                </div>
-				
-			</form>
-			<a href="{% url 'logout' %}">logout</a>
-		</div>
+				<br>
+				<br>
+				<span class="login100-form-title p-b-30">
+					<br>
+					Yemek Seçimi
+				</span>
+				<br>
+				{{ form|crispy }} 
+
+				<div class="container-login100-form-btn">
+					<button class="login100-form-btn" type="submit" >
+						<a href="{% url 'home' %}">Kaydet</a>
+						
+					</button>
+				</div>
+				<br>
+				<br>
+
+				<li>
+					<a href="{% url 'logout' %}" class="txt2">
+						Çıkış Yap
+					</a>
+				</li>
+			</ul>
+
+		</form>
 	</div>
 </div>
+</div>
+
+
+<div id="dropDownSelect1"></div>
 
 
 {% endblock %} 
