@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Current Restaurant{% endblock %}
+{% block jumbotron %} {% include "includes/navbar.html" %}{% endblock %}
+{% block content %}
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-6 col-md-offset-3">
+			
+			{% include "includes/messages.html" %}
+			<span class="login100-form-title ">
+				Yemek Seçimi
+			</span>
+			<br>
+			<form method="post" action="{% url 'accounts:currentrestaurant_view' %}" >
+				{% csrf_token %}
+				{{ form|crispy }} 
+				<button class="login100-form-btn" type="submit">Giriş Yap</button>
+				<br>
+				<li>
+					<!--<a href="" class="txt2">Çıkış Yap</a>-->
+					{% include "includes/account-nav.html" with btn="signin" %}
+				</li>
+				<nav>
+					<ul class="pager">
+						<li><a href="{% url 'accounts:signin_view' %}">Önceki</a></li>
+						<li><a href="{% url 'home' %}">Sonraki</a></li>
+					</ul>
+				</nav>
+			</form>
+		</div>
+	</div>
+</div>
+
+{% endblock %} 

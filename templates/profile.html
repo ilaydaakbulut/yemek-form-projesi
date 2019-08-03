@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Profile {% endblock %}
+{% block jumbotron %} {% include "includes/navbar.html" %}{% endblock %}
+
+{% block content %}
+<div class="container">
+	<div class="row">
+		<div class="col-md-6 col-md-offset-3 mb-3"action="{% url 'accounts:profile_view' %}">	
+			{% include "includes/messages.html" %}		
+			<form method="post" enctype="multipart/form-data" >
+				{% csrf_token %}
+				<span class="login100-form-title ">
+					Profil
+				</span>
+				{{ form|crispy }}
+				<button class="login100-form-btn" type="submit">Kaydet</button>
+				<nav>
+					<ul class="pager">
+						<li><a href="{% url 'accounts:signup_view' %}">Önceki</a></li>
+						<li><a href="{% url 'home' %}">Sonraki</a></li>
+					</ul>
+				</nav>
+			</form>
+		</div>
+	</div>
+</div>
+
+<div id="dropDownSelect1"></div>
+
+
+{% endblock %} 

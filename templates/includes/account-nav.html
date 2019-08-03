@@ -1,0 +1,14 @@
+<ul class="nav justify-content-center">
+    {% if request.user.is_authenticated %}
+    <li class="nav-item">
+        <a class="nav-link {% if btn == 'logout' %}active{% endif %}" href="{% url 'accounts:logout_view' %}">Çıkış Yap</a>
+    </li>
+    {% else %}
+    <li class="nav-item">
+        <a class="nav-link {% if btn == 'signin' %}active{% endif %}" href="{% url 'accounts:signin_view' %}">Giriş Yap</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link {% if btn == 'signup' %}active{% endif %}" href="{% url 'accounts:signup_view' %}">Kayıt Ol</a>
+    </li>
+    {% endif %}
+</ul>

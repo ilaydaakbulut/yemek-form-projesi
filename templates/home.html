@@ -1,38 +1,35 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
+
+
 {% block title %}Home{% endblock %}
 
+{% block jumbotron %} {% include "includes/navbar.html" %}{% endblock %}
+
 {% block content %}
-</head>
-<body>
+<div class="main">
+    <div class="container">
 
-    <div class="main">
-        <div class="container">
-            <div class="signup-content">
-                <div class="signup-img">
-                    
-                    <img src="static/images/signup-img.jpg" width="600"  alt="">
+        <div class="signup-content">
+            <div class="signup-img">
+                <img src="static/images/signup-img.jpg" width="600"  alt="">
+            </div>
 
-
-                </div>
-
-                <div class="signup-form">
-                    <form method="POST" class="register-form" id="register-form">
-                        <h2>Giriş</h2>
-                        {% csrf_token %}
-                        <br>
-                        <h5>Giriş Yapınız.</h5>
-                        <div class="form-submit">
-                            <a href="{% url 'accounts:signup' %}" type="submit" class="submit" name="reset" id="reset">Üye Ol</a>
-                            
-                            <a href="{% url 'login' %}" name="submit" class="submit" id="submit" type="submit"> Üye Girişi </a>
-                        </div>
-                    </form>
-                </div>
+            <div class="signup-form">
+                <form method="POST" class="register-form" id="register-form">
+                    <h2>Giriş</h2>
+                    {% csrf_token %}
+                    <br>
+                    <h5><b>Giriş Yapınız.</b></h5>
+                    <div class="form-submit">
+                        <a href="{% url 'accounts:signup_view' %}" type="submit" class="submit" name="reset" id="reset"><b>Üye Ol</b></a>
+                        <a href="{% url 'accounts:signin_view' %}" name="submit" class="submit" id="submit" type="submit"><b>Üye Girişi</b></a>
+                    </div>
+                </form>
             </div>
         </div>
-
     </div>
+</div>
 {% endblock %}
 
 

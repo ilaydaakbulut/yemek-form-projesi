@@ -251,7 +251,9 @@ body {
   color: #222;
   font-weight: 400;
   background: #282828;
-  padding: 90px 0; }
+  padding: 90px 0;
+  margin: 0;
+  }
 
 .container {
   width: 1400px;
