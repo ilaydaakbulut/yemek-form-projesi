@@ -27,8 +27,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts.apps.AccountsConfig',
     'crispy_forms',
-    'core',
-    'addattr',
+    'django_filters',
     'widget_tweaks',
     #'admin_notifications'
     ]

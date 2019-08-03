@@ -244,7 +244,7 @@ h2 {
 
 .clear {
   clear: both; }
-
+/* 
 body {
   font-size: 13px;
   line-height: 1.8;
@@ -254,7 +254,7 @@ body {
   padding: 90px 0;
   margin: 0;
   }
-
+ */
 .container {
   width: 1400px;
   position: relative;
