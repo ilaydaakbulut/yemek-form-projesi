@@ -1,75 +1,103 @@
-{% extends 'base.html' %}
-
-{% load widget_tweaks %}
-
+{% extends "base.html" %}
+{% load i18n %}
+{% block extracss %}
+<style>
+select.form-control:not([size]):not([multiple]){height: 34px;}
+</style>
+{% endblock extracss %}
 {% block content %}
-  <form method="get">
-    <div class="well">
-      <h4 style="margin-top: 0">Filter</h4>
-      <div class="row">
-        <div class="form-group col-sm-4 col-md-3">
-          {{ filter.form.username.label_tag }}
-          {% render_field filter.form.username class="form-control" %}
-        </div>
-        <div class="form-group col-sm-4 col-md-3">
-          {{ filter.form.first_name.label_tag }}
-          {% render_field filter.form.first_name class="form-control" %}
-        </div>
-        <div class="form-group col-sm-4 col-md-3">
-          {{ filter.form.last_name.label_tag }}
-          {% render_field filter.form.last_name class="form-control" %}
-        </div>
-        <div class="form-group col-sm-4 col-md-3">
-          {{ filter.form.year_joined.label_tag }}
-          {% render_field filter.form.year_joined class="form-control" %}
-        </div>
-        <div class="form-group col-sm-8 col-md-6">
-          {{ filter.form.groups.label_tag }}
-          <div>
-            {% for choice in filter.form.groups %}
-              <label class="checkbox-inline">
-                {{ choice.tag }} {{ choice.choice_label }}
-              </label>
-            {% endfor %}
-          </div>
-        </div>
-      </div>
-      <button type="submit" class="btn btn-primary">
-        <span class="glyphicon glyphicon-search"></span> Search
-      </button>
-    </div>
-  </form>
-
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th>Username</th>
-        <th>First name</th>
-        <th>Last name</th>
-        <th>Date joined</th>
-        <th>Groups</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for user in filter.qs %}
-        <tr>
-          <td>{{ user.username }}</td>
-          <td>{{ user.first_name }}</td>
-          <td>{{ user.last_name }}</td>
-          <td>{{ user.date_joined }}</td>
-          <td>
-            {% for group in user.groups.all %}
-              {{ group }}
-            {% empty %}
-              <em class="text-muted">No group</em>
-            {% endfor %}
-          </td>
-        </tr>
-      {% empty %}
-        <tr>
-          <td colspan="5">No data</td>
-        </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-{% endblock %}
+<div class="container my-4">
+	<div class="card">
+		<div class="card-header">
+			<div class="card-title"><h2>User List</h2></div>
+		</div>
+		<div class="card-body">
+			<form action="">
+				<div class="row">
+					<div class="form-group col-md-6 col-lg-6">
+						<label>Search</label>
+						<input type="text" class="form-control" name="search" value="{{ request.GET.search }}">
+					</div>
+					{% comment %}
+					<div class="form-group col-md-4">
+						<label>Work Type</label>
+						<select name="work_type" class="form-control custom-select">
+							<option value="">{% trans "All" %}</option>
+							{% for work_type in WORKTYPES %}
+							<option value="{{ work_type.0 }}" {% if request.GET.work_type == work_type.0 %}selected{% endif %}>{{ work_type.1 }}</option>
+							{% endfor %}
+						</select>
+					</div>
+					{% endcomment %}
+					<div class="form-group col-md-6">
+						<label>Restaurant</label>
+						<select name="price" class="form-control custom-select">
+							<option value="">{% trans "All" %}</option>
+							{% for price in prices %}
+							<option value="{{ price.pk }}" {% if request.GET.price == price.pk %}selected{% endif %}>{{ price.name }}</option>
+							{% endfor %}
+						</select>
+					</div>
+				</div>
+				<div class="row">
+					<div class="form-group col-md-6 col-lg-6">
+						<label for="publishDateMin">Date Minimum</label>
+						<input type="date" class="form-control" id="publishDateMin" name="date_min">
+					</div>
+					<div class="form-group col-md-6 col-lg-6">
+						<label for="publishDateMax">Date Maximum</label>
+						<input type="date" class="form-control" id="publishDateMax" name="date_max">
+					</div>
+				</div>
+				<br>
+				<div class="form-group">
+					<button type="submit" class="btn btn-warning"><i class="fas fa-search"></i> Search</button>
+				</div>
+				<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Work Type</th>
+						<th>Restaurant</th>
+						<!-- <th>Date</th> -->
+						<th>Expense</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for prof in profiles %}
+					<!--num post={{ num_post }} -->
+					<tr>
+						<td>
+							<a href="{% url 'accounts:signin_view' %}" class="text-warning" >{{ prof.name }}</a>
+						</td>
+						<td>{{ prof.get_work_type_display }}</td>
+						<td>{{ prof.expose }}</td>
+						{% comment %}
+						<td> {{ prof.current_restaurant.created }}</td>{{ prof.user.created | date:'Y-m-d H:i:s' }}
+						{% endcomment %}
+						<td>{{prof.total_current_restaurant_price.expose__expense__sum }}</td>
+					</tr>
+					{% empty %}
+					<tr>
+						<td colspan="5" class="text-center">
+							<i sclass="fas fa-question-circle fa-5x my-5"></i>
+							<br>
+							<h3>There is no profile</h3>
+						</td>
+					</tr>
+					{% endfor %}
+					<br>
+				</tbody>
+			</table>
+			</form>
+			<hr>
+			<h4 class="text-secondary">	<p>Number of profiles : </p>
+			<pre> {{ profiles|length }}</pre></h4>
+			<hr>
+			<h4 class="text-secondary">	<p>Total : </p>
+			<pre> {{ total.expose__expense__sum }} TL </pre></h4>
+		</div>
+		
+	</div>
+</div>
+{% endblock content %}

@@ -16,7 +16,7 @@
 			<br>
 			<form method="post" action="{% url 'accounts:signup_view' %}" >
 				{% csrf_token %}
-				{{ form|crispy }} 
+				<h4>{{ form|crispy }}</h4> 
 				<button class="login100-form-btn" type="submit">Üye Ol</button>	
 				<nav>
 					<ul class="pager">

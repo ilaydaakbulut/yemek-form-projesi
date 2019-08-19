@@ -5,11 +5,13 @@ from django.contrib import messages
 #from django.urls import reverse_lazy
 from django.urls import reverse
 #from django.views import generic
-from django.db.models import Q
+from django.db.models import Q,Sum
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from .forms import ProfileForm, CurrentRestaurantForm, SignInForm
-from .filters import UserFilter
+#from .filters import UserFilter
+from accounts.models import Profile,Price,CurrentRestaurant,WorkType
+from .utils import get_query, paginate
 """
 class SignUp(generic.CreateView):
     form_class = UserCreationForm
@@ -53,8 +55,9 @@ def profile_view(request):
     if form.is_valid():
         instance=form.save(commit=False)
         instance.save()
-        return HttpResponseRedirect(instance.get_absolute_url()) #sayfa yönlendirmesi yapar.
+        return HttpResponseRedirect(instance.get_absolute_url())
     return render(request,'profile.html', dict(form=form))
+
 def profile_view_id(request,id): #veritabanına girilen verileri kaydetme
 
     context ={
@@ -82,17 +85,62 @@ def currentrestaurant_view_id(request,id): #veritabanına girilen verileri kayde
     }
     return render(request,'currentRestaurant.html',context)
 
-def project_list(request):
-    return render(request,'project-list.html')
-def project_detail(request):
-    return render(request,'project-detail.html')
+def is_valid_queryparam(param):
+    return param != '' and param is not None
 
-def search(request):
-    user_list = User.objects.all()
-    user_filter = UserFilter(request.GET, queryset=user_list)
-    return render(request, 'user_list.html', {'filter': user_filter})
+@login_required
+def User_List(request):
+    profiles  = Profile.objects.all()
+    prices    = Price.objects.all()
+    currents  = CurrentRestaurant.objects.all()
+    worktypes = WorkType.objects.all()
+    search    = request.GET.get("search")
+    work_type = request.GET.get("work_type")
+    price     = request.GET.get("price")
+    date_min  = request.GET.get("date_min")
+    date_max  = request.GET.get("date_max")
+
+    if search:
+        entry_query = get_query(search, ("name",))
+        profiles = profiles.filter(entry_query)
+
+    if work_type:
+        profiles = profiles.filter(work_type__pk=work_type)
+        #worktypes = worktypes.filter(name=work_type)
+
+    if price:
+        profiles = profiles.filter(expose__pk=price)
+        currents=currents.filter(expose__pk=price)
+
+    # if is_valid_queryparam(date_min):
+    #     currents = currents.filter(created__gte=date_min)
+
+    # if is_valid_queryparam(date_max):
+    #     currents = currents.filter(created__lt=date_max)
+
+    num_post = profiles.count() #tarek abi ekledi
+    
+    total = currents.aggregate(Sum('expose__expense'))
+
+    ctx = {
+        "profiles": profiles,#name search
+        "prices":prices, #restoran select
+        "work_type": worktypes, #worktype select
+        #"worktype":profiles.work_type
+        "total":total,
+    }
+
+    return render(request, 'user_list.html', ctx)
 
 """
+def search(request):
+    user_list = ProfileForm.objects.all()
+    user_filter = UserFilter(request.GET, queryset=user_list)
+    return render(request, 'search/user_list.html', {'filter': user_filter})
+
+"""  
+"""
+
 def ekle(request): #veritabanına girilen verileri kaydetme
 
     form =ProfileForm(request.POST or None,request.FILES or None)
@@ -104,8 +152,6 @@ def ekle(request): #veritabanına girilen verileri kaydetme
         "form": form,
     }
     return render(request,'ProfileForm.html',context)
-
-
 
 def ekle2(request): #veritabanına girilen verileri kaydetme
 
@@ -119,5 +165,3 @@ def ekle2(request): #veritabanına girilen verileri kaydetme
     }
     return render(request,'currentRestaurant.html',context)
 """
-
-

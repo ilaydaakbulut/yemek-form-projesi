@@ -27,9 +27,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'accounts.apps.AccountsConfig',
     'crispy_forms',
-    'django_filters',
     'widget_tweaks',
-    #'admin_notifications'
+    'django_filters',
+    # 'bootstrapform',
+    #'admin_notifications',
     ]
     
 
@@ -127,6 +128,8 @@ LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
 #CRISPY_TEMPLATE_PACK = 'uni_form'
 
+LOGIN_URL = "/accounts/signin/"
+
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 STATICFILES_DIRS=[
@@ -142,3 +145,6 @@ MESSAGE_TAGS = {
     messages.WARNING: 'alert-warning',
     messages.ERROR: 'alert-danger',
 }
+
+USE_L10N = False                 
+DATETIME_FORMAT = 'Y-m-d H:i:s'

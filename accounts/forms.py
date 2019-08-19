@@ -8,7 +8,7 @@ from .models import Profile, CurrentRestaurant
 class ProfileForm(forms.ModelForm):
 	class Meta:
 		model = Profile
-		fields = ('name','user','work_type', 'starting_date', 'ending_date', 'restaurant',)
+		fields = ('name','user','work_type', 'starting_date', 'ending_date', 'expose',)
 		def __init__(self, *args, **kwargs):
 			super(ProfileForm, self).__init__(*args, **kwargs)
 			for field in self.fields:
@@ -17,7 +17,7 @@ class ProfileForm(forms.ModelForm):
 class CurrentRestaurantForm(forms.ModelForm):
 	class Meta:
 		model = CurrentRestaurant
-		fields = ('created', 'profile', 'status',)
+		fields = ( 'profile', 'expose',)
 		def __init__(self, *args, **kwargs):
 			super(CurrentRestaurantForm, self).__init__(*args, **kwargs)
 			for field in self.fields:

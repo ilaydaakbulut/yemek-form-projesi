@@ -16,7 +16,7 @@
 			<br>
 			<form method="post" action="{% url 'accounts:currentrestaurant_view' %}" >
 				{% csrf_token %}
-				{{ form|crispy }} 
+				<h4>{{ form|crispy }}</h4>
 				<button class="login100-form-btn" type="submit">Giriş Yap</button>
 				<br>
 				<li>
@@ -28,6 +28,11 @@
 						<li><a href="{% url 'accounts:signin_view' %}">Önceki</a></li>
 						<li><a href="{% url 'home' %}">Sonraki</a></li>
 					</ul>
+					{% if user.is_authenticated %}
+					<ul class="pager">
+						<li><a href="{% url 'accounts:User_List' %}">User List</a></li>
+					</ul>
+					{% endif %}
 				</nav>
 			</form>
 		</div>

@@ -17,7 +17,7 @@
 			<br>
 			<form method="post" action="{% url 'accounts:signin_view' %}" >
 				{% csrf_token %}
-				{{ form|crispy }} 
+				<h4>{{ form|crispy }}</h4>
 				<button class="login100-form-btn" type="submit">Giriş Yap</button>
 				<nav>
 					<ul class="pager">
