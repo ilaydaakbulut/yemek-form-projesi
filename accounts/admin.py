@@ -3,7 +3,6 @@ from accounts.models import Profile, CurrentRestaurant,Price,WorkType
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
 
-
 admin.site.register(Profile)
 admin.site.register(Price)
 admin.site.register(WorkType)

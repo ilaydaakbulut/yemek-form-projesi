@@ -12,6 +12,8 @@ from .forms import ProfileForm, CurrentRestaurantForm, SignInForm
 #from .filters import UserFilter
 from accounts.models import Profile,Price,CurrentRestaurant,WorkType
 from .utils import get_query, paginate
+from django.shortcuts import get_object_or_404
+
 """
 class SignUp(generic.CreateView):
     form_class = UserCreationForm
@@ -92,10 +94,10 @@ def is_valid_queryparam(param):
 def User_List(request):
     profiles  = Profile.objects.all()
     prices    = Price.objects.all()
-    currents  = CurrentRestaurant.objects.all()
     worktypes = WorkType.objects.all()
+    currents  = CurrentRestaurant.objects.all()
     search    = request.GET.get("search")
-    work_type = request.GET.get("work_type")
+    worktype  = request.GET.get("worktype") #rastgele isimlendirilir
     price     = request.GET.get("price")
     date_min  = request.GET.get("date_min")
     date_max  = request.GET.get("date_max")
@@ -104,34 +106,56 @@ def User_List(request):
         entry_query = get_query(search, ("name",))
         profiles = profiles.filter(entry_query)
 
-    if work_type:
-        profiles = profiles.filter(work_type__pk=work_type)
-        #worktypes = worktypes.filter(name=work_type)
+    if worktype:
+        currents = currents.filter(profile__pk=worktype)
 
     if price:
-        profiles = profiles.filter(expose__pk=price)
-        currents=currents.filter(expose__pk=price)
+        currents = currents.filter(expose__pk=price)
 
-    # if is_valid_queryparam(date_min):
-    #     currents = currents.filter(created__gte=date_min)
+    if is_valid_queryparam(date_min):
+        currents = currents.filter(created__gte=date_min)
 
-    # if is_valid_queryparam(date_max):
-    #     currents = currents.filter(created__lt=date_max)
-
-    num_post = profiles.count() #tarek abi ekledi
+    if is_valid_queryparam(date_max):
+        currents = currents.filter(created__lt=date_max)
     
     total = currents.aggregate(Sum('expose__expense'))
 
     ctx = {
-        "profiles": profiles,#name search
+        "profiles": profiles,
         "prices":prices, #restoran select
-        "work_type": worktypes, #worktype select
-        #"worktype":profiles.work_type
+        "worktypes": worktypes, #worktype select
+        "currents":currents,
         "total":total,
     }
-
     return render(request, 'user_list.html', ctx)
 
+@login_required
+def Profile_List(request):
+    profiles  = Profile.objects.all()
+    currents  = CurrentRestaurant.objects.all()
+    prices    = Price.objects.all()
+    worktypes = WorkType.objects.all()
+
+    ctx = {
+        "profiles": profiles,#name search
+        "currents": currents, #worktype select
+        "worktypes":worktypes,
+        "prices":prices,
+    }
+
+    return render(request,'profilelist.html',ctx)
+
+@login_required
+def Profile_view_by_id(request,id):
+    profile  = get_object_or_404(CurrentRestaurant, pk=id)
+    #print(profile)
+
+    ctx = {
+        "profile": profile,#name search
+
+    }
+    return render(request,'profilelist.html',ctx)
+    
 """
 def search(request):
     user_list = ProfileForm.objects.all()

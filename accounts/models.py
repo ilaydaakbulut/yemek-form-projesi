@@ -9,27 +9,18 @@ class Price(models.Model):
     expense = models.IntegerField(default=0,blank=True,null=True,verbose_name='expense')
 
     def __str__(self):
-        return "{} = {}".format(self.name,self.expense)
+        return "{} ".format(self.name)
 
 class WorkType(models.Model):
-
     name = models.CharField(max_length=100,verbose_name='Work Type',blank=True)
 
     def __str__(self):
         return "{} ".format(self.name)
 
-    class Meta: #viewda kullanmak için
+    class Meta: #veritabanında görünen yer
         verbose_name = "Work Type"
 
 class Profile(models.Model):
-    """
-    INTERN = 1
-    WORKER = 2
-    WORKTYPES = [
-        (INTERN, 'Stajyer'),
-        (WORKER, 'Çalışan'),
-    ]
-#    work_type = models.IntegerField(choices=WORKTYPES, default=INTERN, verbose_name='Alan Seçimi')    """
 
     name = models.CharField(max_length=100,verbose_name='Ad Soyad',blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE,verbose_name='Kullanıcı Adı')
@@ -38,14 +29,6 @@ class Profile(models.Model):
     ending_date = models.DateField(verbose_name='Bitiş tarihi', help_text='Bitiş tarihinizi giriniz.')
     expose = models.ForeignKey(Price, blank=True, null=True, on_delete=models.SET_NULL ,verbose_name='restaurant')
     #expose.expense    ücret atama fonksiyon ile yap.
-
-    def current_restaurant(self):
-        return CurrentRestaurant.objects.filter(profile=self)
-
-    def total_current_restaurant_price(self):
-        ret = CurrentRestaurant.objects.filter(profile=self).aggregate(Sum('expose__expense'))
-        return ret
-
     class Meta: 
         verbose_name_plural="Profil"
         ordering = ("name",)
@@ -56,30 +39,26 @@ class Profile(models.Model):
     def get_absolute_url(self):
         return reverse('accounts:profile_view_id', kwargs={"id": self.id})
 """
-    def count_posts_of(users):
-        total=Profile.object.aggregate(Sum('expose.expense'))
-        return total
-        num_post=Profile.objects.filter(user=users).count()
-        profiles=len(Profile.objects.all())
-        for i in profiles:
-            for j in (profiles-1):
-                if user[i]==user[j+1]:
-                    num_post=+1
-                    return num_post
-                return num_post
+    def current_restaurant(self):
+        return CurrentRestaurant.objects.filter(name=self)
+
+    def total_current_restaurant_price(self):
+        ret = CurrentRestaurant.objects.filter(name=self).aggregate(Sum('expose__expense'))
+        #print(ret)
+        return ret
 """
+
 class CurrentRestaurant(models.Model):
     
     name = models.ForeignKey(Profile,on_delete=models.CASCADE,verbose_name='Kullanıcı Adı',blank=True, null=True)
     created= models.DateTimeField(auto_now_add=True,verbose_name='Bugünün Tarihi')
     profile = models.ForeignKey(WorkType, on_delete=models.SET_NULL, verbose_name="work type",blank=True, null=True)
     expose = models.ForeignKey(Price, blank=True, null=True, on_delete=models.SET_NULL ,verbose_name='restaurant')
-    
+
     class Meta: #viewda kullanmak için
         verbose_name = "Cari Yemek Hareketi"
         verbose_name_plural = verbose_name
         ordering = ("-id",)
-
   
     def get_full_name(self):
         if self.name:
@@ -91,16 +70,12 @@ class CurrentRestaurant(models.Model):
             return "No Profile"
 
     get_full_name.short_description = "Adı Soyadı"
-
     
     def __str__(self):
         return "{} {}".format(self.get_full_name(),self.expose)
 
     def get_absolute_url(self):
         return reverse('accounts:currentrestaurant_view_id', kwargs={"id": self.id})
-
-
-
 
 """ 
 class Count(Profile):

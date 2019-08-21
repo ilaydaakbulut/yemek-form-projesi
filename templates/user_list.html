@@ -5,6 +5,7 @@
 select.form-control:not([size]):not([multiple]){height: 34px;}
 </style>
 {% endblock extracss %}
+{% block title %}User List{% endblock %}
 {% block content %}
 <div class="container my-4">
 	<div class="card">
@@ -14,22 +15,21 @@ select.form-control:not([size]):not([multiple]){height: 34px;}
 		<div class="card-body">
 			<form action="">
 				<div class="row">
-					<div class="form-group col-md-6 col-lg-6">
+					<div class="form-group col-md-6 col-lg-4">
 						<label>Search</label>
 						<input type="text" class="form-control" name="search" value="{{ request.GET.search }}">
 					</div>
-					{% comment %}
 					<div class="form-group col-md-4">
 						<label>Work Type</label>
-						<select name="work_type" class="form-control custom-select">
+						<select name="worktype" class="form-control custom-select">
 							<option value="">{% trans "All" %}</option>
-							{% for work_type in WORKTYPES %}
-							<option value="{{ work_type.0 }}" {% if request.GET.work_type == work_type.0 %}selected{% endif %}>{{ work_type.1 }}</option>
+							{% for worktype in worktypes %}
+							<option value="{{ worktype.pk }}" {% if request.GET.worktype == worktype.pk %}selected{% endif %}>{{ worktype.name }}</option>
 							{% endfor %}
 						</select>
 					</div>
-					{% endcomment %}
-					<div class="form-group col-md-6">
+					
+					<div class="form-group col-md-4">
 						<label>Restaurant</label>
 						<select name="price" class="form-control custom-select">
 							<option value="">{% trans "All" %}</option>
@@ -54,50 +54,50 @@ select.form-control:not([size]):not([multiple]){height: 34px;}
 					<button type="submit" class="btn btn-warning"><i class="fas fa-search"></i> Search</button>
 				</div>
 				<table class="table table-bordered">
-				<thead>
-					<tr>
-						<th>Name</th>
-						<th>Work Type</th>
-						<th>Restaurant</th>
-						<!-- <th>Date</th> -->
-						<th>Expense</th>
-					</tr>
-				</thead>
-				<tbody>
-					{% for prof in profiles %}
-					<!--num post={{ num_post }} -->
-					<tr>
-						<td>
-							<a href="{% url 'accounts:signin_view' %}" class="text-warning" >{{ prof.name }}</a>
-						</td>
-						<td>{{ prof.get_work_type_display }}</td>
-						<td>{{ prof.expose }}</td>
-						{% comment %}
-						<td> {{ prof.current_restaurant.created }}</td>{{ prof.user.created | date:'Y-m-d H:i:s' }}
-						{% endcomment %}
-						<td>{{prof.total_current_restaurant_price.expose__expense__sum }}</td>
-					</tr>
-					{% empty %}
-					<tr>
-						<td colspan="5" class="text-center">
-							<i sclass="fas fa-question-circle fa-5x my-5"></i>
-							<br>
-							<h3>There is no profile</h3>
-						</td>
-					</tr>
-					{% endfor %}
-					<br>
-				</tbody>
-			</table>
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Work Type</th>
+							<th>Restaurant</th>
+							<th>Date</th>
+							<th>Expense</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for current in currents %}
+						<tr>
+							<td>
+								<a href="{% url 'accounts:Profile_List_id' current.pk %}" class="text-warning">{{ current.name }}</a>
+							</td>
+							<td>{{ current.profile.name }}</td>
+							<td>{{ current.expose.name }}</td>
+							<td> {{ current.created }}</td>
+							<td>{{ current.expose.expense }}</td>
+						</tr>
+						{% empty %}
+						<tr>
+							<td colspan="5" class="text-center">
+								<i sclass="fas fa-question-circle fa-5x my-5"></i>
+								<br>
+								<h3>There is no profile</h3>
+							</td>
+						</tr>
+						{% endfor %}
+						<br>
+					</tbody>
+				</table>
 			</form>
+			
+			<hr>
+			<h4 class="text-secondary">	<p>Number of current restaurant forms : </p>
+			<pre> {{ currents|length }}</pre></h4>
 			<hr>
 			<h4 class="text-secondary">	<p>Number of profiles : </p>
 			<pre> {{ profiles|length }}</pre></h4>
 			<hr>
-			<h4 class="text-secondary">	<p>Total : </p>
-			<pre> {{ total.expose__expense__sum }} TL </pre></h4>
+			<h4 class="text-secondary">	<p>Total : </p><pre> {{ total.expose__expense__sum }} TL </pre></h4>
 		</div>
-		
 	</div>
+</div>
 </div>
 {% endblock content %}

@@ -15,5 +15,7 @@ urlpatterns = [
     path('Profile/<int:id>/', views.profile_view_id, name='profile_view_id'),
     path('currentrestaurant/<int:id>/', views.currentrestaurant_view_id, name='currentrestaurant_view_id'),
     path('list/', view=views.User_List, name="User_List"),
+    path('profilelist/', view=views.Profile_List, name="profilelist"),
+    path('profilelist/<int:id>/', view=views.Profile_view_by_id, name="Profile_List_id"),
 
 ]

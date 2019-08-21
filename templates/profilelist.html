@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block extracss %}
+<style>
+li{
+	font-size: 15px;
+}
+h2{
+	font-family: Verdana;
+	color:#ffbc40;
+}
+</style>
+{% endblock extracss %}
+
+{% block title %}Profile List{% endblock %}
+
+{% block content %}
+
+<div class="container my-4">
+	<div class="card">
+		<div class="card-header">
+			<div class="card-title"><h1>Profile List</h1></div>
+		</div>
+		<div class="card-body">
+			<div class="container">
+				<h2>{{ profile.name }}</h2>
+				<br>
+				<ul class="list-group">
+					<li class="list-group-item">User: <p> {{ profile.name.user }}</p> </li>
+					<li class="list-group-item">Work Type	: <p>{{ profile.name.work_type.name }}</p></li>
+					<li class="list-group-item">Starting Date: <p>{{ profile.name.starting_date }}</p></li>
+					<li class="list-group-item">Ending Date: <p>{{ profile.name.ending_date }}</p></li>
+					<li class="list-group-item">Restaurant	: <p>{{ profile.name.expose }}</p></li>
+					<li class="list-group-item">Expense	: <p>{{ profile.name.expose.expense }}</p></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock content %}
