@@ -31,7 +31,6 @@ class SignInForm(forms.Form):
     ]
     password_validators = [
         MaxLengthValidator(limit_value=255, message=_("Maximum length allowed is %(max_length)s") % dict(max_length=255)), 
-        # PATCH: limit_value = 1, min_length = 5
         MinLengthValidator(limit_value=1, message=_("Minimum length allowed is %(min_length)s") % dict(min_length=5)),
     ]
     username = forms.CharField(widget=forms.TextInput(

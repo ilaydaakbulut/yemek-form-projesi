@@ -11,13 +11,18 @@
 			
 			{% include "includes/messages.html" %}
 			<span class="login100-form-title ">
-				Yemek Seçimi
+				Food Selection
 			</span>
 			<br>
 			<form method="post" action="{% url 'accounts:currentrestaurant_view' %}" >
 				{% csrf_token %}
+				{% comment %}
+				{% if Profile.work_type.name==stajyer %}
+					CurrentRestaurant.expose.name==üniversite yemekhanesi
+				{% endif %}
+				{% endcomment %}
 				<h4>{{ form|crispy }}</h4>
-				<button class="login100-form-btn" type="submit">Giriş Yap</button>
+				<button class="login100-form-btn" type="submit">Log In</button>
 				<br>
 				<li>
 					<!--<a href="" class="txt2">Çıkış Yap</a>-->
@@ -25,10 +30,10 @@
 				</li>
 				<nav>
 					<ul class="pager">
-						<li><a href="{% url 'accounts:signin_view' %}">Önceki</a></li>
-						<li><a href="{% url 'home' %}">Sonraki</a></li>
+						<li><a href="{% url 'accounts:signin_view' %}">Previous</a></li>
+						<li><a href="{% url 'home' %}">Next</a></li>
 					</ul>
-					{% if user.is_authenticated %}
+					{% if user.is_superuser %}
 					<ul class="pager">
 						<li><a href="{% url 'accounts:User_List' %}">User List</a></li>
 					</ul>

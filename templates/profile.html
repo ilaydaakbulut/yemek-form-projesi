@@ -1,9 +1,7 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
-
-{% block title %}Profile {% endblock %}
 {% block jumbotron %} {% include "includes/navbar.html" %}{% endblock %}
-
+{% block title %}Profile {% endblock %}
 {% block content %}
 <div class="container">
 	<div class="row">
@@ -12,14 +10,15 @@
 			<form method="post" enctype="multipart/form-data" >
 				{% csrf_token %}
 				<span class="login100-form-title ">
-					Profil
+					Profile
 				</span>
 				<h4>{{ form|crispy }}</h4>
-				<button class="login100-form-btn" type="submit">Kaydet</button>
+				
+				<button class="login100-form-btn" type="submit">Save</button>
 				<nav>
 					<ul class="pager">
-						<li><a href="{% url 'accounts:signup_view' %}">Önceki</a></li>
-						<li><a href="{% url 'home' %}">Sonraki</a></li>
+						<li><a href="{% url 'accounts:signup_view' %}">Previous</a></li>
+						<li><a href="{% url 'home' %}">Next</a></li>
 					</ul>
 				</nav>
 			</form>

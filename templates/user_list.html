@@ -6,6 +6,7 @@ select.form-control:not([size]):not([multiple]){height: 34px;}
 </style>
 {% endblock extracss %}
 {% block title %}User List{% endblock %}
+{% block jumbotron %} {% include "includes/navbar.html" %}{% endblock %}
 {% block content %}
 <div class="container my-4">
 	<div class="card">
@@ -87,15 +88,15 @@ select.form-control:not([size]):not([multiple]){height: 34px;}
 					</tbody>
 				</table>
 			</form>
-			
 			<hr>
 			<h4 class="text-secondary">	<p>Number of current restaurant forms : </p>
 			<pre> {{ currents|length }}</pre></h4>
+			
+			<hr>
+			<h4 class="text-secondary">	<p>Total : </p><pre> {{ total.expose__expense__sum }} TL </pre></h4>
 			<hr>
 			<h4 class="text-secondary">	<p>Number of profiles : </p>
 			<pre> {{ profiles|length }}</pre></h4>
-			<hr>
-			<h4 class="text-secondary">	<p>Total : </p><pre> {{ total.expose__expense__sum }} TL </pre></h4>
 		</div>
 	</div>
 </div>

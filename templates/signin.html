@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 
-{% block title %}Giriş Yap{% endblock %}
+{% block title %}Log In{% endblock %}
 {% block jumbotron %} {% include "includes/navbar.html" %}{% endblock %}
 {% block content %}
 
@@ -12,16 +12,16 @@
 			<!--{% include "includes/account-nav.html" with btn="signin" %}-->
 			{% include "includes/messages.html" %}
 			<span class="login100-form-title ">
-				Giriş Yap
+				Log In
 			</span>
 			<br>
 			<form method="post" action="{% url 'accounts:signin_view' %}" >
 				{% csrf_token %}
 				<h4>{{ form|crispy }}</h4>
-				<button class="login100-form-btn" type="submit">Giriş Yap</button>
+				<button class="login100-form-btn" type="submit">Log In</button>
 				<nav>
 					<ul class="pager">
-						<li><a href="{% url 'home' %}">Önceki</a></li>
+						<li><a href="{% url 'home' %}">Previous</a></li>
 					</ul>
 				</nav>
 			</form>

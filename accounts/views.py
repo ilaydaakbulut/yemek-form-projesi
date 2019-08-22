@@ -14,12 +14,6 @@ from accounts.models import Profile,Price,CurrentRestaurant,WorkType
 from .utils import get_query, paginate
 from django.shortcuts import get_object_or_404
 
-"""
-class SignUp(generic.CreateView):
-    form_class = UserCreationForm
-    success_url = reverse_lazy('login')
-    template_name = 'signup.html'
-"""
 def signin_view(request):
     form = SignInForm()
     if request.POST:
@@ -58,6 +52,10 @@ def profile_view(request):
         instance=form.save(commit=False)
         instance.save()
         return HttpResponseRedirect(instance.get_absolute_url())
+        """
+    if Profile.work_type.name!=üniversite yemekhanesi:
+        pass
+        """
     return render(request,'profile.html', dict(form=form))
 
 def profile_view_id(request,id): #veritabanına girilen verileri kaydetme
@@ -79,7 +77,6 @@ def currentrestaurant_view(request):
         instance.save()
         return HttpResponseRedirect(instance.get_absolute_url()) #sayfa yönlendirmesi yapar.
     return render(request,'currentRestaurant.html', dict(form=form))
-
 
 def currentrestaurant_view_id(request,id): #veritabanına girilen verileri kaydetme
 
@@ -104,7 +101,7 @@ def User_List(request):
 
     if search:
         entry_query = get_query(search, ("name",))
-        profiles = profiles.filter(entry_query)
+        currents = currents.filter(entry_query)
 
     if worktype:
         currents = currents.filter(profile__pk=worktype)
@@ -155,37 +152,3 @@ def Profile_view_by_id(request,id):
 
     }
     return render(request,'profilelist.html',ctx)
-    
-"""
-def search(request):
-    user_list = ProfileForm.objects.all()
-    user_filter = UserFilter(request.GET, queryset=user_list)
-    return render(request, 'search/user_list.html', {'filter': user_filter})
-
-"""  
-"""
-
-def ekle(request): #veritabanına girilen verileri kaydetme
-
-    form =ProfileForm(request.POST or None,request.FILES or None)
-    if form.is_valid():
-        instance=form.save(commit=False)
-        instance.save()
-        return HttpResponseRedirect(instance.get_absolute_url())
-    context ={
-        "form": form,
-    }
-    return render(request,'ProfileForm.html',context)
-
-def ekle2(request): #veritabanına girilen verileri kaydetme
-
-    form =CurrentRestaurantForm(request.POST or None,request.FILES or None)
-    if form.is_valid():
-        instance=form.save(commit=False)
-        instance.save()
-        return HttpResponseRedirect(instance.get_absolute_url())
-    context ={
-        "form": form,
-    }
-    return render(request,'currentRestaurant.html',context)
-"""

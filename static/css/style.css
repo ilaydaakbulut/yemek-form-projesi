@@ -244,18 +244,17 @@ h2 {
 
 .clear {
   clear: both; }
-/* 
+
 body {
   font-size: 13px;
   line-height: 1.8;
   color: #222;
   font-weight: 400;
   background: #282828;
-  padding: 90px 0;
+  padding: 0;
   margin: 0;
   }
- */
-.container {
+ .container {
   width: 1400px;
   position: relative;
   margin: 0 auto;
