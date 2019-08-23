@@ -1,18 +1,13 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
-
 {% block title %}Sign Up{% endblock %}
-{% block jumbotron %} {% include "includes/navbar.html" %}{% endblock %}
-
+{% block jumbotron %} {% include "includes/navbar.html" %}{% include "includes/footer.html" %}{% endblock %}
 {% block content %}
 <div class="container">
 	<div class="row">
 		<div class="col-md-6 col-md-offset-3">
-			<!--{% include "includes/account-nav.html" with btn="signup" %}<br>-->
 			{% include "includes/messages.html" %}
-			<span class="login100-form-title ">
-				Sign Up
-			</span>
+			<span class="login100-form-title ">Sign Up</span>
 			<br>
 			<form method="post" action="{% url 'accounts:signup_view' %}" >
 				{% csrf_token %}
@@ -27,5 +22,4 @@
 		</div>
 	</div>
 </div>
-
 {% endblock %} 

@@ -1,20 +1,14 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
-
-
 {% block title %}Home{% endblock %}
-
-{% block jumbotron %} {% include "includes/navbar.html" %}{% endblock %}
-
+{% block jumbotron %} {% include "includes/navbar.html" %}{% include "includes/footer.html" %}{% endblock %}
 {% block content %}
 <div class="main">
     <div class="container">
-
         <div class="signup-content">
             <div class="signup-img">
                 <img src="static/images/signup-img.jpg" width="600"  alt="">
             </div>
-
             <div class="signup-form">
                 <form method="POST" class="register-form" id="register-form">
                     <h2>Login</h2>
@@ -22,8 +16,8 @@
                     <br>
                     <h5><b>Please log in.</b></h5>
                     <div class="form-submit">
-                        <a href="{% url 'accounts:signup_view' %}" type="submit" class="submit" name="reset" id="reset"><b>Sign Up</b></a>
                         <a href="{% url 'accounts:signin_view' %}" name="submit" class="submit" id="submit" type="submit"><b>Sign In</b></a>
+                        <a href="{% url 'accounts:signup_view' %}" type="submit" class="submit" name="reset" id="reset"><b>Sign Up</b></a>
                     </div>
                 </form>
             </div>
@@ -31,5 +25,4 @@
     </div>
 </div>
 {% endblock %}
-
 

@@ -258,7 +258,8 @@ body {
   width: 1400px;
   position: relative;
   margin: 0 auto;
-  background: #fff; }
+  background: #fff;
+  }
 
 .signup-img, .signup-form {
   width: 50%; }
@@ -484,5 +485,7 @@ select {
   #reset {
     margin-right: 0px;
     margin-bottom: 10px; } }
+
+
 
 /*# sourceMappingURL=style.css.map */

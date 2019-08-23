@@ -5,9 +5,7 @@ from django.conf import settings
 from django.contrib import messages
 from django.db.models import Q
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-
 import re
-
 
 def paginate(objects, per_page=24, page=1):
     paginator = Paginator(objects, per_page)

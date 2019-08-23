@@ -1,47 +1,32 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
-
 {% block title %}Current Restaurant{% endblock %}
-{% block jumbotron %} {% include "includes/navbar.html" %}{% endblock %}
+{% block jumbotron %} {% include "includes/navbar.html" %}{% include "includes/footer.html" %}{% endblock %}
 {% block content %}
-
 <div class="container">
 	<div class="row">
 		<div class="col-md-6 col-md-offset-3">
-			
 			{% include "includes/messages.html" %}
-			<span class="login100-form-title ">
-				Food Selection
-			</span>
+			<span class="login100-form-title ">Food Selection</span>
 			<br>
 			<form method="post" action="{% url 'accounts:currentrestaurant_view' %}" >
 				{% csrf_token %}
-				{% comment %}
-				{% if Profile.work_type.name==stajyer %}
-					CurrentRestaurant.expose.name==üniversite yemekhanesi
-				{% endif %}
-				{% endcomment %}
 				<h4>{{ form|crispy }}</h4>
 				<button class="login100-form-btn" type="submit">Log In</button>
 				<br>
 				<li>
-					<!--<a href="" class="txt2">Çıkış Yap</a>-->
 					{% include "includes/account-nav.html" with btn="signin" %}
 				</li>
 				<nav>
 					<ul class="pager">
 						<li><a href="{% url 'accounts:signin_view' %}">Previous</a></li>
-						<li><a href="{% url 'home' %}">Next</a></li>
-					</ul>
-					{% if user.is_superuser %}
-					<ul class="pager">
+						{% if user.is_superuser %}
 						<li><a href="{% url 'accounts:User_List' %}">User List</a></li>
+						{% endif %}
 					</ul>
-					{% endif %}
 				</nav>
 			</form>
 		</div>
 	</div>
 </div>
-
-{% endblock %} 
+{% endblock %}

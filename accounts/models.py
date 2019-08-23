@@ -38,7 +38,16 @@ class Profile(models.Model):
 
     def get_absolute_url(self):
         return reverse('accounts:profile_view_id', kwargs={"id": self.id})
+
 """
+    def filter(self):
+        fil = WorkType.objects.filter(work_type__name='stajyer')
+        if fil:
+            fil = Price.objects.filter(expose__name='üniversite yemekhanesi')
+        else:
+            fil = Price.objects.all()
+        return fil
+        
     def current_restaurant(self):
         return CurrentRestaurant.objects.filter(name=self)
 

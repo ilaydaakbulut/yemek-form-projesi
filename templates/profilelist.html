@@ -4,18 +4,15 @@
 li{
 	font-size: 15px;
 }
-h2{
+h3{
 	font-family: Verdana;
 	color:#ffbc40;
 }
 </style>
 {% endblock extracss %}
-
 {% block title %}Profile List{% endblock %}
 {% block jumbotron %} {% include "includes/navbar.html" %}{% endblock %}
-
 {% block content %}
-
 <div class="container my-4">
 	<div class="card">
 		<div class="card-header">
@@ -23,7 +20,7 @@ h2{
 		</div>
 		<div class="card-body">
 			<div class="container">
-				<h2>{{ profile.name }}</h2>
+				<h3>{{ profile.name }}</h3>
 				<br>
 				<ul class="list-group">
 					<li class="list-group-item">User: <p> {{ profile.name.user }}</p> </li>
@@ -37,5 +34,4 @@ h2{
 		</div>
 	</div>
 </div>
-
 {% endblock content %}

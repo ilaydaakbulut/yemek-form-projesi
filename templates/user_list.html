@@ -29,7 +29,6 @@ select.form-control:not([size]):not([multiple]){height: 34px;}
 							{% endfor %}
 						</select>
 					</div>
-					
 					<div class="form-group col-md-4">
 						<label>Restaurant</label>
 						<select name="price" class="form-control custom-select">
@@ -54,8 +53,8 @@ select.form-control:not([size]):not([multiple]){height: 34px;}
 				<div class="form-group">
 					<button type="submit" class="btn btn-warning"><i class="fas fa-search"></i> Search</button>
 				</div>
-				<table class="table table-bordered">
-					<thead>
+				<table class="table table-bordered" >
+					<thead class="thead-dark">
 						<tr>
 							<th>Name</th>
 							<th>Work Type</th>
@@ -68,7 +67,7 @@ select.form-control:not([size]):not([multiple]){height: 34px;}
 						{% for current in currents %}
 						<tr>
 							<td>
-								<a href="{% url 'accounts:Profile_List_id' current.pk %}" class="text-warning">{{ current.name }}</a>
+								<a href="{% url 'accounts:Profile_List_id' current.pk %}" class="text-warning">{{ current.name.name }}</a>
 							</td>
 							<td>{{ current.profile.name }}</td>
 							<td>{{ current.expose.name }}</td>
@@ -91,7 +90,6 @@ select.form-control:not([size]):not([multiple]){height: 34px;}
 			<hr>
 			<h4 class="text-secondary">	<p>Number of current restaurant forms : </p>
 			<pre> {{ currents|length }}</pre></h4>
-			
 			<hr>
 			<h4 class="text-secondary">	<p>Total : </p><pre> {{ total.expose__expense__sum }} TL </pre></h4>
 			<hr>
@@ -99,6 +97,5 @@ select.form-control:not([size]):not([multiple]){height: 34px;}
 			<pre> {{ profiles|length }}</pre></h4>
 		</div>
 	</div>
-</div>
 </div>
 {% endblock content %}

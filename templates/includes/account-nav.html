@@ -1,4 +1,4 @@
-<ul class="nav justify-content-center">
+<ul class="pager">
     {% if request.user.is_authenticated %}
     <li class="nav-item">
         <a class="nav-link {% if btn == 'logout' %}active{% endif %}" href="{% url 'accounts:logout_view' %}">Log Out</a>

@@ -52,10 +52,6 @@ def profile_view(request):
         instance=form.save(commit=False)
         instance.save()
         return HttpResponseRedirect(instance.get_absolute_url())
-        """
-    if Profile.work_type.name!=üniversite yemekhanesi:
-        pass
-        """
     return render(request,'profile.html', dict(form=form))
 
 def profile_view_id(request,id): #veritabanına girilen verileri kaydetme
@@ -139,13 +135,11 @@ def Profile_List(request):
         "worktypes":worktypes,
         "prices":prices,
     }
-
     return render(request,'profilelist.html',ctx)
 
 @login_required
 def Profile_view_by_id(request,id):
     profile  = get_object_or_404(CurrentRestaurant, pk=id)
-    #print(profile)
 
     ctx = {
         "profile": profile,#name search
