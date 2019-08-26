@@ -37,7 +37,7 @@ def signup_view(request):
         if form.is_valid():
             form.save()
             messages.success(request, "OK, SignUp has been succeeded!")
-            return redirect(reverse("accounts:profile_view"))
+            return redirect(reverse("accounts:signin_view"))
         else:
             messages.warning(request, "Error, Invalid Input")
     return render(request, "signup.html", dict(form=form))
@@ -93,7 +93,7 @@ def User_List(request):
     date_max  = request.GET.get("date_max")
 
     if search:
-        entry_query = get_query(search, ("name__name",),)
+        entry_query = get_query(search, ("profile__name",),)
         currents = currents.filter(entry_query)
 
     if worktype:

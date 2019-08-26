@@ -6,7 +6,7 @@ from django.db.models import Q,Sum
 
 class Price(models.Model):
     name = models.CharField(max_length=100,verbose_name='Restaurant',blank=True)
-    expense = models.IntegerField(default=0,blank=True,null=True,verbose_name='Expense')
+    expense = models.FloatField(default=0.0,blank=True,null=True,verbose_name='Expense')
 
     def __str__(self):
         return "{} ".format(self.name)
@@ -28,7 +28,7 @@ class Profile(models.Model):
     starting_date = models.DateField(verbose_name='Starting Date', help_text='Enter your starting date.Date : yyyy-aa-gg')
     ending_date = models.DateField(verbose_name='Ending Date', help_text='Enter your ending date.Date : yyyy-aa-gg')
     expose = models.ForeignKey(Price, blank=True, null=True, on_delete=models.SET_NULL ,verbose_name='Restaurant')
-    #expose.expense    ücret atama fonksiyon ile yap.
+
     class Meta: 
         verbose_name_plural="Profile"
         ordering = ("name",)
@@ -39,23 +39,14 @@ class Profile(models.Model):
     def get_absolute_url(self):
         return reverse('accounts:profile_view_id', kwargs={"id": self.id})
 
-"""
-    def filter(self):
-        fil = WorkType.objects.filter(work_type__name='stajyer')
-        if fil:
-            fil = Price.objects.filter(expose__name='üniversite yemekhanesi')
+    def Filter(self):
+        filters = CurrentRestaurant.objects.filter(worktype__name='Stajyer')
+        if filters:
+            filters = CurrentRestaurant.objects.filter(expose__name='Üniversite Yemekhanesi')
         else:
-            fil = Price.objects.all()
-        return fil
-        
-    def current_restaurant(self):
-        return CurrentRestaurant.objects.filter(name=self)
+            filters = Price.objects.all()
+        return filters
 
-    def total_current_restaurant_price(self):
-        ret = CurrentRestaurant.objects.filter(name=self).aggregate(Sum('expose__expense'))
-        #print(ret)
-        return ret
-"""
 class CurrentRestaurant(models.Model):
     
     profile = models.ForeignKey(Profile,on_delete=models.CASCADE,verbose_name='Username',blank=True, null=True)

@@ -25,19 +25,19 @@ class Command(BaseCommand):
 			price1, created = Price.objects.get_or_create(pk=1)
 			if created:
 				price1.name = "Çınar Restoran"
-				price1.expense = 20
+				price1.expense = 20.0
 				price1.save()
 				print("Default Price 1 Added")
 			price2, created = Price.objects.get_or_create(pk=2)
 			if created:
 				price2.name = "Üniversite Yemekhanesi"
-				price2.expense = 15
+				price2.expense = 15.5
 				price2.save()
 				print("Default Price 2 Added")
 			price3, created = Price.objects.get_or_create(pk=3)
 			if created:
 				price3.name = "Yemek Ücret"
-				price3.expense = 10
+				price3.expense = 10.5
 				price3.save()
 				print("Default Price 3 Added")
 			work1, created = WorkType.objects.get_or_create(pk=1)
