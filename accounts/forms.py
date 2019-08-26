@@ -17,7 +17,7 @@ class ProfileForm(forms.ModelForm):
 class CurrentRestaurantForm(forms.ModelForm):
 	class Meta:
 		model = CurrentRestaurant
-		fields = ( 'name','profile', 'expose',)
+		fields = ( 'profile','worktype', 'expose',)
 		def __init__(self, *args, **kwargs):
 			super(CurrentRestaurantForm, self).__init__(*args, **kwargs)
 			for field in self.fields:

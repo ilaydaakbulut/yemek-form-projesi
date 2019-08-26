@@ -2,14 +2,11 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.shortcuts import render, redirect, HttpResponse, HttpResponseRedirect
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
-#from django.urls import reverse_lazy
 from django.urls import reverse
-#from django.views import generic
 from django.db.models import Q,Sum
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from .forms import ProfileForm, CurrentRestaurantForm, SignInForm
-#from .filters import UserFilter
 from accounts.models import Profile,Price,CurrentRestaurant,WorkType
 from .utils import get_query, paginate
 from django.shortcuts import get_object_or_404
@@ -21,7 +18,7 @@ def signin_view(request):
         if form.is_valid():
             username = request.POST.get("username")
             password = request.POST.get("password")
-            nextpage = request.POST.get("next") or reverse("accounts:currentrestaurant_view") #sayfa yönlendirmesi
+            nextpage = request.POST.get("next") or reverse("home") #sayfa yönlendirmesi
             try:
                 user = User.objects.get(Q(username=username)|Q(email=username))
                 auth = authenticate(username=user.username, password=password)
@@ -96,11 +93,11 @@ def User_List(request):
     date_max  = request.GET.get("date_max")
 
     if search:
-        entry_query = get_query(search, ("name",))
+        entry_query = get_query(search, ("name__name",),)
         currents = currents.filter(entry_query)
 
     if worktype:
-        currents = currents.filter(profile__pk=worktype)
+        currents = currents.filter(worktype__pk=worktype)
 
     if price:
         currents = currents.filter(expose__pk=price)

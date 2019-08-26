@@ -13,6 +13,10 @@
 				{% csrf_token %}
 				<h4>{{ form|crispy }}</h4>
 				<button class="login100-form-btn" type="submit">Log In</button>
+				{% comment %}
+					
+				{% endcomment %}
+				
 				<br>
 				<li>
 					{% include "includes/account-nav.html" with btn="signin" %}
@@ -20,9 +24,7 @@
 				<nav>
 					<ul class="pager">
 						<li><a href="{% url 'accounts:signin_view' %}">Previous</a></li>
-						{% if user.is_superuser %}
-						<li><a href="{% url 'accounts:User_List' %}">User List</a></li>
-						{% endif %}
+						<li><a href="{% url 'home' %}">Next</a></li>
 					</ul>
 				</nav>
 			</form>

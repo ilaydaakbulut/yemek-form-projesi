@@ -5,19 +5,40 @@
 {% block content %}
 <div class="main">
     <div class="container">
+        <br>
+        <br>
         <div class="signup-content">
             <div class="signup-img">
                 <img src="static/images/signup-img.jpg" width="600"  alt="">
             </div>
             <div class="signup-form">
                 <form method="POST" class="register-form" id="register-form">
-                    <h2>Login</h2>
                     {% csrf_token %}
+                    {% if request.user.is_authenticated %}
+                    <h2>Register</h2>
+                    <br>
+                    <h5><b>If you have just registered, fill out your profile first.</b></h5>
+                    {% else %}
+                    <h2>Login</h2>
                     <br>
                     <h5><b>Please log in.</b></h5>
+                    {% endif %}
                     <div class="form-submit">
+                        {% if request.user.is_authenticated %}
+                        <a href="{% url 'accounts:profile_view' %}" name="submit" class="submit" id="submit" type="submit"><b>My Profile</b></a>
+                        <a href="{% url 'accounts:currentrestaurant_view' %}" name="reset" class="submit" id="reset" type="submit"><b>Restaurant Selection</b></a>
+                        {% else %}
                         <a href="{% url 'accounts:signin_view' %}" name="submit" class="submit" id="submit" type="submit"><b>Sign In</b></a>
                         <a href="{% url 'accounts:signup_view' %}" type="submit" class="submit" name="reset" id="reset"><b>Sign Up</b></a>
+                        {% endif %}
+                    </div>
+                    <div class="form-submit">
+                        <br>
+                        <br>
+                        <br>
+                        {% if user.is_superuser %}
+                        <a href="{% url 'accounts:User_List' %}" class="btn btn-secondary  btn-lg active" tabindex="-1" role="button" aria-disabled="true">User List</a>
+                        {% endif %}
                     </div>
                 </form>
             </div>

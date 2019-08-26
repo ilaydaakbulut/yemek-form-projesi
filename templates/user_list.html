@@ -67,9 +67,9 @@ select.form-control:not([size]):not([multiple]){height: 34px;}
 						{% for current in currents %}
 						<tr>
 							<td>
-								<a href="{% url 'accounts:Profile_List_id' current.pk %}" class="text-warning">{{ current.name.name }}</a>
+								<a href="{% url 'accounts:Profile_List_id' current.pk %}" class="text-warning">{{ current.profile.name }}</a>
 							</td>
-							<td>{{ current.profile.name }}</td>
+							<td>{{ current.worktype.name }}</td>
 							<td>{{ current.expose.name }}</td>
 							<td> {{ current.created }}</td>
 							<td>{{ current.expose.expense }}</td>

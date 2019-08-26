@@ -9,7 +9,7 @@
 			{% include "includes/messages.html" %}
 			<span class="login100-form-title ">Log In</span>
 			<br>
-			<form method="post" action="{% url 'accounts:signin_view' %}" >
+			<form method="post" action="{% url 'accounts:signin_view' %}">
 				{% csrf_token %}
 				<h4>{{ form|crispy }}</h4>
 				<button class="login100-form-btn" type="submit">Log In</button>

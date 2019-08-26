@@ -58,9 +58,9 @@ class Profile(models.Model):
 """
 class CurrentRestaurant(models.Model):
     
-    name = models.ForeignKey(Profile,on_delete=models.CASCADE,verbose_name='Username',blank=True, null=True)
+    profile = models.ForeignKey(Profile,on_delete=models.CASCADE,verbose_name='Username',blank=True, null=True)
     created= models.DateTimeField(auto_now_add=True,verbose_name='Created Date',help_text='Date : yyyy-aa-gg')
-    profile = models.ForeignKey(WorkType, on_delete=models.SET_NULL, verbose_name="Work Type",blank=True, null=True)
+    worktype = models.ForeignKey(WorkType, on_delete=models.SET_NULL, verbose_name="Work Type",blank=True, null=True)
     expose = models.ForeignKey(Price, blank=True, null=True, on_delete=models.SET_NULL ,verbose_name='Restaurant')
 
     class Meta: #viewda kullanmak için
@@ -69,9 +69,9 @@ class CurrentRestaurant(models.Model):
         ordering = ("-id",)
   
     def get_full_name(self):
-        if self.name:
-            if self.name.user:
-                return self.name
+        if self.profile:
+            if self.profile.user:
+                return self.profile
             else:
                 return "No User Inside The Profile"
         else:
