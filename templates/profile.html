@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load crispy_forms_tags %}
+{% load crispy_forms_tags static %}
 {% block jumbotron %} {% include "includes/navbar.html" %}{% include "includes/footer.html" %}{% endblock %}
 {% block title %}Profile {% endblock %}
 {% block content %}
@@ -22,4 +22,8 @@
 		</div>
 	</div>
 </div>
-{% endblock %} 
+<input type="hidden" name="url2action" value="{% url 'accounts:profile_manage' %}">
+{% endblock %}
+{% block extrajs %}
+<script src="{% static 'accounts/profile.js' %}"></script>
+{% endblock extrajs %}

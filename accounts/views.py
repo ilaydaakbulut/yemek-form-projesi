@@ -1,5 +1,6 @@
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.shortcuts import render, redirect, HttpResponse, HttpResponseRedirect
+from django.http import JsonResponse
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from django.urls import reverse
@@ -133,6 +134,17 @@ def Profile_List(request):
         "prices":prices,
     }
     return render(request,'profilelist.html',ctx)
+
+@login_required
+def profile_manage(request):
+    args = {}
+    if request.POST and request.is_ajax():
+        worktype_pk = request.POST.get("worktype_pk") or -1
+        worktype = WorkType.objects.filter(pk=worktype_pk).first()
+        if worktype:
+            args = list(map(lambda a: a.get_dict(), worktype.prices.all()))
+            #print(args)
+    return JsonResponse(args, safe=False)
 
 @login_required
 def Profile_view_by_id(request,id):

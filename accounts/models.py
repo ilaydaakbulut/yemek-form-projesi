@@ -3,6 +3,7 @@ import os
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django.db.models import Q,Sum
+from .utils import get_query
 
 class Price(models.Model):
     name = models.CharField(max_length=100,verbose_name='Restaurant',blank=True)
@@ -10,15 +11,24 @@ class Price(models.Model):
 
     def __str__(self):
         return "{} ".format(self.name)
+        
+    def get_dict(self):
+        return dict(
+            pk= self.pk,
+            name=self.name,
+            expense=self.expense,
+        )
 
 class WorkType(models.Model):
     name = models.CharField(max_length=100,verbose_name='Work Type',blank=True)
+    prices = models.ManyToManyField(Price, blank=True, related_name='worktype_prices', verbose_name='Prices Preferences')
 
     def __str__(self):
         return "{} ".format(self.name)
 
     class Meta: #veritabanında görünen yer
         verbose_name = "Work Type"
+
 
 class Profile(models.Model):
 
@@ -39,13 +49,17 @@ class Profile(models.Model):
     def get_absolute_url(self):
         return reverse('accounts:profile_view_id', kwargs={"id": self.id})
 
-    def Filter(self):
-        filters = CurrentRestaurant.objects.filter(worktype__name='Stajyer')
-        if filters:
-            filters = CurrentRestaurant.objects.filter(expose__name='Üniversite Yemekhanesi')
-        else:
-            filters = Price.objects.all()
-        return filters
+
+    # def Filter(self):
+    #     WorkType.objects.filter(name='Stajyer').first()
+    #     filters = CurrentRestaurant.objects.filter(worktype=WorkType.objects.filter(name='Stajyer').first())
+    #     if filters:
+    #         filters = CurrentRestaurant.objects.filter(expose__name='Üniversite Yemekhanesi')
+    #         print(filters)
+    #     else:
+    #         filters = Price.objects.all()
+
+    #     return filters
 
 class CurrentRestaurant(models.Model):
     
