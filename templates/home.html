@@ -15,6 +15,9 @@
                 <form method="POST" class="register-form" id="register-form">
                     {% csrf_token %}
                     {% if request.user.is_authenticated %}
+                    <h2>welcome {{ request.user }}</h2>
+                    <hr>
+                    <br>
                     <h2>Register</h2>
                     <br>
                     <h5><b>If you have just registered, fill out your profile first.</b></h5>
@@ -38,6 +41,9 @@
                         <br>
                         {% if user.is_superuser %}
                         <a href="{% url 'accounts:User_List' %}" class="btn btn-secondary  btn-lg active" tabindex="-1" role="button" aria-disabled="true">User List</a>
+                        <a href="{% url 'accounts:price_view' %}" class="btn btn-secondary  btn-lg active" tabindex="-1" role="button" aria-disabled="true">Add Price</a>
+                        <a href="{% url 'accounts:worktype_view' %}" class="btn btn-secondary  btn-lg active" tabindex="-1" role="button" aria-disabled="true">Add Work Type</a>
+                        &emsp;
                         {% endif %}
                     </div>
                 </form>

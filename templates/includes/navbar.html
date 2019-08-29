@@ -3,7 +3,7 @@
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <a class="nav-link" href="#"><h2>&emsp;Food Form</h2></a>
+  <a class="nav-link" href="{% url 'home' %}"><h2>&emsp;Food Form</h2></a>
   <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
       <li class="nav-item active">
@@ -13,7 +13,7 @@
     <form class="form-inline my-2 my-lg-0">
       {% if request.user.is_authenticated %}
       <li class="nav-item">
-        <a class="nav-link {% if btn == 'logout' %}active{% endif %}" href="{% url 'accounts:logout_view' %}">Log Out</a>
+        <a class="nav-link {% if btn == 'logout' %}active{% endif %}" href="{% url 'accounts:logout_view' %}">{{ request.user }}&emsp;Log Out</a>
       </li>
       {% else %}
       <li class="nav-item">

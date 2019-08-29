@@ -3,7 +3,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.core.validators import MaxLengthValidator, MinLengthValidator, EmailValidator, RegexValidator
 from django import forms
 from django.contrib.auth.models import User
-from .models import Profile, CurrentRestaurant
+from .models import Profile, CurrentRestaurant,Price,WorkType
 
 class ProfileForm(forms.ModelForm):
 	class Meta:
@@ -39,3 +39,30 @@ class SignInForm(forms.Form):
     password  = forms.CharField(widget=forms.PasswordInput(
         attrs=default_attrs.update(dict(placeholder=_("Password")))
     ), validators=password_validators, required=True, label=_("Password"))
+
+class PriceForm(forms.ModelForm):
+    class Meta:
+        model = Price
+        fields = ('name','expense',)
+        def __init__(self, *args, **kwargs):
+            super(PriceForm, self).__init__(*args, **kwargs)
+            for field in self.fields:
+                self.fields[field].widget.attrs = {'class': 'form-control'}
+
+class PriceForm(forms.ModelForm):
+    class Meta:
+        model = Price
+        fields = ('name','expense',)
+        def __init__(self, *args, **kwargs):
+            super(PriceForm, self).__init__(*args, **kwargs)
+            for field in self.fields:
+                self.fields[field].widget.attrs = {'class': 'form-control'}
+
+class WorkTypeForm(forms.ModelForm):
+    class Meta:
+        model = WorkType
+        fields = ('name','prices',)
+        def __init__(self, *args, **kwargs):
+            super(WorkTypeForm, self).__init__(*args, **kwargs)
+            for field in self.fields:
+                self.fields[field].widget.attrs = {'class': 'form-control'}

@@ -19,6 +19,7 @@ class Price(models.Model):
             expense=self.expense,
         )
 
+
 class WorkType(models.Model):
     name = models.CharField(max_length=100,verbose_name='Work Type',blank=True)
     prices = models.ManyToManyField(Price, blank=True, related_name='worktype_prices', verbose_name='Prices Preferences')
@@ -49,17 +50,6 @@ class Profile(models.Model):
     def get_absolute_url(self):
         return reverse('accounts:profile_view_id', kwargs={"id": self.id})
 
-
-    # def Filter(self):
-    #     WorkType.objects.filter(name='Stajyer').first()
-    #     filters = CurrentRestaurant.objects.filter(worktype=WorkType.objects.filter(name='Stajyer').first())
-    #     if filters:
-    #         filters = CurrentRestaurant.objects.filter(expose__name='Üniversite Yemekhanesi')
-    #         print(filters)
-    #     else:
-    #         filters = Price.objects.all()
-
-    #     return filters
 
 class CurrentRestaurant(models.Model):
     

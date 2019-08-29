@@ -7,7 +7,7 @@ from django.urls import reverse
 from django.db.models import Q,Sum
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from .forms import ProfileForm, CurrentRestaurantForm, SignInForm
+from .forms import ProfileForm, CurrentRestaurantForm, SignInForm,PriceForm,WorkTypeForm
 from accounts.models import Profile,Price,CurrentRestaurant,WorkType
 from .utils import get_query, paginate
 from django.shortcuts import get_object_or_404
@@ -155,3 +155,23 @@ def Profile_view_by_id(request,id):
 
     }
     return render(request,'profilelist.html',ctx)
+
+@login_required
+def price_view(request):
+    form = PriceForm()
+    if request.method =="POST" : 
+        form = PriceForm(data=request.POST)
+        if form.is_valid(): 
+          form.save()
+          return redirect(reverse("home"))
+    return render(request, 'price.html', context={'form' : form})
+
+@login_required
+def worktype_view(request):
+    form = WorkTypeForm()
+    if request.method =="POST" : 
+        form = WorkTypeForm(data=request.POST)
+        if form.is_valid(): 
+          form.save()
+          return redirect(reverse("home"))
+    return render(request, 'worktype.html', context={'form' : form})

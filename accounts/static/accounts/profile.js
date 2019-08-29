@@ -1,5 +1,5 @@
 (function($){
-	var csrfmiddlewaretoken = $("input[name=csrfmiddlewaretoken]").val();
+	var csrfmiddlewaretoken = $("input[name=csrfmiddlewaretoken]").val();  //csrf token ın js hali yani veritabanına kayıt yapan bölümü
 	$("select[name=work_type]").on('change', function(){
 		$.ajax({
 			type: "POST",
