@@ -17,6 +17,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'jet',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -27,6 +28,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'widget_tweaks',
     'django_filters',
+    
     ]
     
 MIDDLEWARE = [
@@ -57,10 +59,12 @@ TEMPLATES = [
                 'django.template.context_processors.static',
                 'django.template.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.request',
             ],
         },
     },
 ]
+
 
 WSGI_APPLICATION = 'yemekformu.wsgi.application'
 

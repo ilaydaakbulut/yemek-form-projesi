@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load crispy_forms_tags %}
+{% load crispy_forms_tags static %}
 {% block title %}Current Restaurant{% endblock %}
 {% block jumbotron %} {% include "includes/navbar.html" %}{% include "includes/footer.html" %}{% endblock %}
 {% block content %}
@@ -27,4 +27,9 @@
 		</div>
 	</div>
 </div>
+<input type="hidden" name="url2action" value="{% url 'accounts:currentrestaurant_manage' %}">
 {% endblock %}
+{% block extrajs %}
+<script src="{% static 'accounts/currentrestaurant.js' %}"></script>
+
+{% endblock extrajs %}

@@ -175,3 +175,22 @@ def worktype_view(request):
           form.save()
           return redirect(reverse("home"))
     return render(request, 'worktype.html', context={'form' : form})
+
+@login_required
+def currentrestaurant_manage(request):
+    args = {}
+    if request.POST and request.is_ajax():
+        worktype_pk = request.POST.get("worktype_pk") or -1
+        worktype = WorkType.objects.filter(pk=worktype_pk).first()
+        if worktype:
+            args = list(map(lambda a: a.get_dict(), worktype.prices.all()))
+            #print(args)
+    return JsonResponse(args, safe=False)
+def currentwork_list(request):
+    worktypes = WorkType.objects.all()
+
+    ctx = {
+        "worktypes":worktypes,
+        
+    }
+    return render(request,'worktype.html',ctx)
