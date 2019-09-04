@@ -14,31 +14,31 @@
 				<button class="login100-form-btn" type="submit">Save</button>
 			</form>
 			<table class="table table-bordered" >
-					<thead class="thead-dark">
-						<tr>
-							<th>Work Type</th>
-							<th>Expense</th>
-						</tr>
-					</thead>
-					<tbody>
-						{% for current in currents %}
-						<tr>
-							<td>{{ current.profile.name }}</td>
-							<td>{{worktype.name}}</td>
-							
-						{% empty %}
-						<tr>
-							<td colspan="5" class="text-center">
-								<i sclass="fas fa-question-circle fa-5x my-5"></i>
-								<br>
-								<h3>There is no work type</h3>
-							</td>
-						</tr>
-						{% endfor %}
-						<br>
-					</tbody>
-				</table>
-			
+				<thead class="thead-dark">
+					<tr>
+						<th>Work Type</th>
+						<th>Prices Preferences</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for worktype in worktypes %}
+					<tr>
+						<td>{{ worktype.name }}</td>
+						<td>{% for prices in worktype.prices.all %}
+							{{ prices }}/	
+							{% endfor %}</td>
+					{% empty %}
+					<tr>
+						<td colspan="5" class="text-center">
+							<i sclass="fas fa-question-circle fa-5x my-5"></i>
+							<br>
+							<h3>There is no work type</h3>
+						</td>
+					</tr>
+					{% endfor %}
+				<br>
+				</tbody>
+			</table>
 		</div>
 	</div>
 </div>

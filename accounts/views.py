@@ -152,29 +152,38 @@ def Profile_view_by_id(request,id):
 
     ctx = {
         "profile": profile,#name search
-
     }
     return render(request,'profilelist.html',ctx)
 
 @login_required
 def price_view(request):
     form = PriceForm()
+    prices = Price.objects.all()
     if request.method =="POST" : 
         form = PriceForm(data=request.POST)
         if form.is_valid(): 
           form.save()
           return redirect(reverse("home"))
-    return render(request, 'price.html', context={'form' : form})
+    ctx={
+        "form" : form,
+        "prices": prices,
+    }
+    return render(request, 'price.html', ctx)
 
 @login_required
 def worktype_view(request):
     form = WorkTypeForm()
+    worktypes = WorkType.objects.all()
     if request.method =="POST" : 
         form = WorkTypeForm(data=request.POST)
         if form.is_valid(): 
           form.save()
           return redirect(reverse("home"))
-    return render(request, 'worktype.html', context={'form' : form})
+    ctx={
+        "form" : form,
+        "worktypes": worktypes,
+    }
+    return render(request, 'worktype.html', ctx)
 
 @login_required
 def currentrestaurant_manage(request):
@@ -186,11 +195,3 @@ def currentrestaurant_manage(request):
             args = list(map(lambda a: a.get_dict(), worktype.prices.all()))
             #print(args)
     return JsonResponse(args, safe=False)
-def currentwork_list(request):
-    worktypes = WorkType.objects.all()
-
-    ctx = {
-        "worktypes":worktypes,
-        
-    }
-    return render(request,'worktype.html',ctx)
