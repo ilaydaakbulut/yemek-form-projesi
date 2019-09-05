@@ -11,8 +11,19 @@
 			<br>
 			<form method="post" action="{% url 'accounts:currentrestaurant_view' %}" >
 				{% csrf_token %}
+				{% if request.user.is_superuser %}
 				<h4>{{ form|crispy }}</h4>
-				<button class="login100-form-btn" type="submit" >Log In</button>
+				{% else %}
+				<div class="form-group">
+					<label>Restaurant</label>
+					<select name="expose">
+						{% for res in profile.work_type.prices.all %}
+							<option value="{{ res.pk }}">{{ res.name }}</option>
+						{% endfor %}
+					</select>
+				</div>
+				{% endif %}
+				<button class="login100-form-btn" type="submit" >Submit</button>
 				<br>
 				<li>
 					{% include "includes/account-nav.html" with btn="signin" %}

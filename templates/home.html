@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load crispy_forms_tags %}
+{% load crispy_forms_tags static %}
 {% block title %}Home{% endblock %}
 {% block jumbotron %} {% include "includes/navbar.html" %}{% include "includes/footer.html" %}{% endblock %}
 {% block content %}
@@ -29,7 +29,7 @@
                     <div class="form-submit">
                         {% if request.user.is_authenticated %}
                         <a href="{% url 'accounts:profile_view' %}" name="submit" class="submit" id="submit" type="submit"><b>My Profile</b></a>
-                        <a href="{% url 'accounts:currentrestaurant_view' %}" name="reset" class="submit" id="reset" type="submit"><b>Restaurant Selection</b></a>
+                        <a href="{% url 'accounts:currentrestaurant_view' %}" name="reset" class="submit" id="reset" type="submit"><b>Restaurant Selection</b></a>            
                         {% else %}
                         <a href="{% url 'accounts:signin_view' %}" name="submit" class="submit" id="submit" type="submit"><b>Sign In</b></a>
                         <a href="{% url 'accounts:signup_view' %}" type="submit" class="submit" name="reset" id="reset"><b>Sign Up</b></a>
@@ -43,7 +43,7 @@
                         <a href="{% url 'accounts:User_List' %}" class="btn btn-secondary  btn-lg active" tabindex="-1" role="button" aria-disabled="true">User List</a>
                         <a href="{% url 'accounts:price_view' %}" class="btn btn-secondary  btn-lg active" tabindex="-1" role="button" aria-disabled="true">Add Price</a>
                         <a href="{% url 'accounts:worktype_view' %}" class="btn btn-secondary  btn-lg active" tabindex="-1" role="button" aria-disabled="true">Add Work Type</a>
-                        &emsp;
+                        &emsp;                        
                         {% endif %}
                     </div>
                 </form>

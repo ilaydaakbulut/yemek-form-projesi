@@ -66,11 +66,25 @@ def logout_view(request):
 @login_required
 def currentrestaurant_view(request):
     form =CurrentRestaurantForm(request.POST or None,request.FILES or None)
+    profile = Profile.objects.filter(user__pk=request.user.pk).first()
     if form.is_valid():
-        instance=form.save(commit=False)
-        instance.save()
-        return HttpResponseRedirect(instance.get_absolute_url()) #sayfa yönlendirmesi yapar.
-    return render(request,'currentRestaurant.html', dict(form=form))
+        if request.user.is_superuser:
+            instance=form.save(commit=False)
+            instance.save()
+            return HttpResponseRedirect(instance.get_absolute_url()) #sayfa yönlendirmesi yapar.
+        else:
+            expose = request.POST.get("expose")
+            if profile and expose:
+                obj = CurrentRestaurant.objects.create(
+                    profile=profile,
+                    worktype=profile.work_type,
+                    expose=Price.objects.get(pk=expose)
+                )
+                messages.success(request, "OK, Submitted success!")
+            else:
+                messages.warning(request, "Error, Error occured while submit")
+            return redirect(reverse("accounts:currentrestaurant_view"))
+    return render(request,'currentRestaurant.html', dict(form=form, profile=profile))
 
 def currentrestaurant_view_id(request,id): #veritabanına girilen verileri kaydetme
 
